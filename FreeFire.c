@@ -21,7 +21,7 @@ typedef struct
     char nome[30]; // nome do item, ex: "Rifle de assalto"
     char tipo[20]; // categoria, ex: "arma", "munição", "cura"
     int quantidade; // quantos desse item o jogador tem.
-}; Item;
+} Item;
 
 /*
 _-_-_-_-_-_ VARIÁVEIS GLOBAIS DA MOCHILA _-_-_-_-_-_
@@ -41,11 +41,74 @@ _-_-_-_-_-_ PROTÓTIPOS DAS FUNÇÕES _-_-_-_-_-_
 
 Declarar os protótipos no topo permite que o main() (que fica
 antes delas no arquivo) saiba que essas funções existem.*/
-void inserirItem(void);
-void removerItem(void);
-void listarItens(void);
+void inserirItem();
+void removerItem();
+void listarItens();
 int buscarItem(char nomeBuscando[]); //retorna a POSIÇÃO do item no vetor (ou -1 se não achar)
 
-void limparBufferEntrada(void)
+void limparBufferEntrada(void);
 
-         
+/*_-_-_-_-_-_FUNÇÃO PRINCIPAL (main)_-_-_-_-_-_
+Aqui fica o "coração" do programa: um menu que repete(loop)
+até o jogador escolher sair (opção 0)*/
+
+int main() {
+    int opcao;
+
+    do
+    { // menu orientativo: mensagens claras para o jogador saber o que fazer.
+       printf("\n_-_-_ MOCHILA DE LOOT_-_-_");
+       printf("1 - Cadastrar item\n");
+       printf("2 - Remover item\n");
+       printf("3 - Listar itens\n");
+       printf("4 - Buscar item\n");
+       printf("0 - Sair\n");
+       printf("Escolha uma opcao: "); 
+
+       //Lê a opção escolhida. Scanf com %d lê apenas o número inteiro.
+       scanf("%d", opcao);
+       limparBufferEntrada(); //essencial antes de usar o fgets() depois de scanf().
+
+       //switch: direciona o fluxo para a função certa, conforme a escolha. 
+       switch (opcao)
+       {
+       case 1:
+            inserirItem();
+            listarItens(); // requisito: listar após cada operação.
+        break;
+       case 2:
+            removerItem();
+            listarItens();
+            break;
+        case 3:
+            listarItens();
+            break;
+        case 4: {
+            char nomeBuscando[30];
+            printf("Digite o nome do item a bsucar: ");
+            fgets(nomeBuscando, sizeof(nomeBuscando), stdin);
+            nomeBuscando[strcspn(nomeBuscando, "\n")] = '\0'; // remove p '\n' que "fgets" deixa
+            
+            int pos = buscarItem(nomeBuscando);
+            if (pos != -1)
+            {
+                printf("\nItem encontrado!\n");
+                printf("Nome: %s | Tipo; %s | Quantidade: %d\n", mochila[pos].nome, mochila[pos].tipo, mochila[pos].quantidade);
+
+            } else {
+                printf("\nItem \"%s\" nao encontrado na mochila.\n", nomeBuscando);
+            }
+            break;
+       }
+        case 0: 
+            printf("Encerrando o sistema. Boa sorte na partida!\n");
+            break;
+        default:
+            printf("Opcao invalida! Tente novamente,\n");
+        }
+
+    } while (opcao != 0); // repete o menu até o jogador digitar "0"
+    
+    return 0;
+    
+}
