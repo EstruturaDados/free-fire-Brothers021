@@ -23,4 +23,29 @@ typedef struct
     int quantidade; // quantos desse item o jogador tem.
 }; Item;
 
+/*
+_-_-_-_-_-_ VARIÁVEIS GLOBAIS DA MOCHILA _-_-_-_-_-_
+mochila[]: vetor(lista sequencial) que guarda até MAX_ITENS structs Itens. 
+totalitens: quantos itens estão realmente ocupados no vetor agora.
+
+Por que globais?: Para simplificar o exemplo didático e permitir 
+que todas as funções acessam a mesma mochila sem precisar passar
+o vetor inteiro como parâmetro toda hora. (Em projetos futuros e maiores
+devemos usar parâmetros e ponteiros).*/
+
+Item mochila[MAX_ITENS];
+int totalItens = 0;
+
+/*
+_-_-_-_-_-_ PROTÓTIPOS DAS FUNÇÕES _-_-_-_-_-_
+
+Declarar os protótipos no topo permite que o main() (que fica
+antes delas no arquivo) saiba que essas funções existem.*/
+void inserirItem(void);
+void removerItem(void);
+void listarItens(void);
+int buscarItem(char nomeBuscando[]); //retorna a POSIÇÃO do item no vetor (ou -1 se não achar)
+
+void limparBufferEntrada(void)
+
          
