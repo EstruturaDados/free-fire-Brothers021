@@ -87,7 +87,7 @@ int main() {
             char nomeBuscando[30];
             printf("Digite o nome do item a bsucar: ");
             fgets(nomeBuscando, sizeof(nomeBuscando), stdin);
-            nomeBuscando[strcspn(nomeBuscando, "\n")] = '\0'; // remove p '\n' que "fgets" deixa
+            nomeBuscando[strcspn(nomeBuscando, "\n")] = '\0'; // remove o '\n' que "fgets" deixa
             
             int pos = buscarItem(nomeBuscando);
             if (pos != -1)
@@ -122,4 +122,39 @@ void limparBufferEntrada(void); {
         int c;
         while ((c = getchar()) != '\n' && c != EOF);
 }
+/*
+ _-_-_-_-_-_INSERIR ITENS_-_-_-_-_-_
+ cadastrar um novo item na mochila, se ainda houver espaço.*/
 
+ void inserirItem(void) {
+    //Regra: não deixe passar de MAX_ITENS (10)
+    if (totalItens >= MAX_ITENS)
+    {
+        printf("\nMochila cheia! Nao e possivel cadastrar mais itens.\n");
+        return; //sai da função imediatamente
+    }
+// toalItens funciona como "próxima posição livre" no vetor.
+// Ex: se totalItens = 0
+
+    Item novoItem;
+
+    printf("\n _-_-Cadastro de novo item _-_-\n");
+
+    printf("Nome do item: ");
+    fgets(novoItem.tipo, sizeof(novoItem.tipo), stdin);
+    novoItem.tipo[strcspn(novoItem.tipo, "\n")] = '\0'; // tira o "\n" final do fgets
+
+    printf("Tipo do item (arma, municao, cura, ferramenta...): ");
+    fgets(novoItem.tipo,sizeof(novoItem.tipo), stdin);
+    novoItem.tipo[strcspn(novoItem.tipo,"\n")] = '\0';
+
+    printf("Quantidade: ");
+    scanf("%d", &novoItem.quantidade);
+    limparBufferEntrada(); // limpa o ENTER de novo, pois usamos o "scanf" aqui
+
+//Vamos guardar o item montado na próxima posição livre do vetor.
+    mochila[totalItens] = novoItem;
+    totalItens++; //avança o contador: agora há mais um item ocupado
+
+    printf("\nItem \"%s\" cadastrado com sucesso!\n", novoItem.nome);
+ }
