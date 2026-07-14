@@ -18,6 +18,9 @@ Porque mantém os dados de UM item sempre juntos.
 */            
 typedef struct 
 {
-    /* data */
-};
+    char nome[30]; // nome do item, ex: "Rifle de assalto"
+    char tipo[20]; // categoria, ex: "arma", "munição", "cura"
+    int quantidade; // quantos desse item o jogador tem.
+}; Item;
+
          
