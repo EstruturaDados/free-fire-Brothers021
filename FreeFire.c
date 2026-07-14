@@ -110,5 +110,16 @@ int main() {
     } while (opcao != 0); // repete o menu até o jogador digitar "0"
     
     return 0;
-    
 }
+
+/*_-_-_-_-_-_ limparBufferEntrada_-_-_-_-_-_
+     _-_-uma pequena explicação para que serve_-_- 
+Quando usamos "scanf(%d)" para ler um número, o ENTER que o usuário aperta fica "sobrando"
+em vez de esperar o usuário digitar algo novo. Essa função "limpa" isso,
+lendo e descartando os caracteres até encontrar a quebra de linha.*/
+
+void limparBufferEntrada(void); {
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+}
+
