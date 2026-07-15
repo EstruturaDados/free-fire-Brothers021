@@ -216,3 +216,27 @@ void listarItens() {
     }
     
 }
+/*
+-_-_-_-_-_ BUSCAR ITENS -_-_-_-_-_-_
+Busca sequencial = percorre o vetor item por item, comparando 
+o nome de cada um com o nome buscado, até achar ou chegar o fim.
+É a busca mais simples que existe: não exige o vetor ordenado.
+
+Retorna: 
+- a posição (índice) do item no vetor, se encontrado.
+- -1, se não encontrado.
+Essa função é usada tanto pela opção "4 - buscar item" do menu
+quanto internamente por "removeritem()", evitando duplicar lógica.
+*/
+void buscarItem(char nomeBuscando[]) {
+    for (int i = 0; i < totalItens; i++)
+    {
+        //strcmp retorna 0 quando as duas strings são IDÊNTICAS
+        if (strcmp(mochila[i].nome, nomeBuscando) ==0)
+        {
+            return i; //Se achar devolve a posição
+        }
+        
+    }
+    return -1; //percorreu tudo e não achou.
+}
