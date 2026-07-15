@@ -57,7 +57,8 @@ int main() {
 
     do
     { // menu orientativo: mensagens claras para o jogador saber o que fazer.
-       printf("\n_-_-_ MOCHILA DE LOOT_-_-_");
+       printf("\n_-_-_ MOCHILA DE LOOT_-_-_\n");
+
        printf("1 - Cadastrar item\n");
        printf("2 - Remover item\n");
        printf("3 - Listar itens\n");
