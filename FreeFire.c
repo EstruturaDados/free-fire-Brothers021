@@ -228,7 +228,7 @@ Retorna:
 Essa função é usada tanto pela opção "4 - buscar item" do menu
 quanto internamente por "removeritem()", evitando duplicar lógica.
 */
-void buscarItem(char nomeBuscando[]) {
+int buscarItem(char nomeBuscando[]) {
     for (int i = 0; i < totalItens; i++)
     {
         //strcmp retorna 0 quando as duas strings são IDÊNTICAS
