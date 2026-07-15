@@ -66,7 +66,7 @@ int main() {
        printf("Escolha uma opcao: "); 
 
        //Lê a opção escolhida. Scanf com %d lê apenas o número inteiro.
-       scanf("%d", opcao);
+    scanf("%d", &opcao);
        limparBufferEntrada(); //essencial antes de usar o fgets() depois de scanf().
 
        //switch: direciona o fluxo para a função certa, conforme a escolha. 
@@ -116,9 +116,10 @@ int main() {
      _-_-uma pequena explicação para que serve_-_- 
 Quando usamos "scanf(%d)" para ler um número, o ENTER que o usuário aperta fica "sobrando"
 em vez de esperar o usuário digitar algo novo. Essa função "limpa" isso,
-lendo e descartando os caracteres até encontrar a quebra de linha.*/
+lendo e descartando os caracteres até encontrar a quebra de linha.
+*/
 
-void limparBufferEntrada(void); {
+void limparBufferEntrada(void) {
         int c;
         while ((c = getchar()) != '\n' && c != EOF);
 }
@@ -158,3 +159,37 @@ void limparBufferEntrada(void); {
 
     printf("\nItem \"%s\" cadastrado com sucesso!\n", novoItem.nome);
  }
+
+ /*_-_-_-_-_-_REMOVER ITENS_-_-_-_-_-_
+ remove um item da mochila pelo nome, usando busca sequencial.
+ Estratégia: encontrar a posição do item e "puxar" todos os itens
+ seguintes um posição para trás, sobrescrevendo o item removido.
+ */
+void removerItem() {
+    if (totalItens == 0)
+    {
+        printf("\nA mochila esta vazia. Nada para remover.\n");
+        return;
+    }
+    char nomeRemover[30];
+    printf("\nDigite o nome do item a remover: ");
+    fgets(nomeRemover, sizeof(nomeRemover), stdin);
+    nomeRemover[strcspn(nomeRemover, "\n")] = '\0';
+
+//Reaproveitando a função de busca sequencial para achar a posição
+    int pos = buscarItem(nomeRemover);
+
+    if (pos == -1)
+    {
+        printf("\nItem \"%s\" nao encontrado. Nada foi removido.\n", nomeRemover);
+        return;
+    }
+//Desloca todo os itens depois da posição encontrada uma casa para trás.
+//Ex: removendo mochila[2], mochila[3] vira mochila[2], mochila[4] vira mochila[3]...
+    for ( int i = pos; i < totalItens; i++)
+    {
+        mochila[i] = mochila[i + 1];
+    }
+    totalItens--; // Aqui deixa um item a menos no vetor
+    printf("\n\"%s\"removido com sucesso!\n", nomeRemover);
+}
