@@ -193,3 +193,26 @@ void removerItem() {
     totalItens--; // Aqui deixa um item a menos no vetor
     printf("\n\"%s\"removido com sucesso!\n", nomeRemover);
 }
+/*
+_-_-_-_-_-_LISTAR ITENS_-_-_-_-_-_
+Percorrer o vetor do ínicio (0) até "totalitens" - 1, exibindo
+os dados de cada item. Note que não percorremos até MAX_ITENS,
+pois nem todas as posições do vetor estão necessariamente em uso.*/
+void listarItens() {
+    printf("\n_-_- Itens na mochila (%d/%d) _-_-\n", totalItens, MAX_ITENS);
+
+    if (totalItens == 0)
+    {
+        printf("A mochila esta vazia\n");
+        return;
+    }
+// Imprime os dados do item da mochila: número, nome (15 espaços), tipo (10 espaços) e quantidade
+
+    for (int i = 0; i < totalItens; i++)
+    {
+        printf("[%d] Nome: %-15s Tipo: %-10s Quantidade: %d\n", 
+
+        i + 1, mochila[i].nome, mochila[i].tipo, mochila[i].quantidade);
+    }
+    
+}
