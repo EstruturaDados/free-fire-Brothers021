@@ -42,6 +42,18 @@ devemos usar parâmetros e ponteiros).*/
 
 Item mochila[MAX_ITENS];
 int totalItens = 0;
+int totalItensVetor = 0;
+int vetorEstarOrdenado = 0;
+
+// _-_-_-_-_-_- VARIÁVEIS DA LISTA ENCADEADA _-_-_-_-_-_
+No *iniciolista = NULL;
+
+// _-_-_-_-_-_- CONTADORES DE COMPARAÇÕES _-_-_-_-_-_-
+int comparacoesSequencial = 0;
+int comaparacoesBinaria = 0;
+
+// _-_-_-_-_-_- CONTROLE DE ORDENAÇÃO DO VETOR _-_-_-_-_-_-
+int vetorOrdenado = 0;
 
 /*
 _-_-_-_-_-_ PROTÓTIPOS DAS FUNÇÕES _-_-_-_-_-_
