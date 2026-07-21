@@ -1,4 +1,4 @@
-/*- - - - - - -  MOCHILA DE LOOT 1°PARTE - - - - - - - - -
+/*- - - - - - -  MOCHILA DE LOOT 2°PARTE - - - VETOR (LISTA SEQUENCIAL) - VS - LISTA ENCADEADA - - - - -
 ° Objetivo: Cadastra, remover, listar e buscar itens usando STRUCT e um VETOR(lista sequencial). */
 
 #include <stdio.h>
@@ -54,25 +54,17 @@ até o jogador escolher sair (opção 0)*/
 
 int main() {
     int opcao;
-    Item novoItem;
 
     do
     { // menu orientativo: mensagens claras para o jogador saber o que fazer.
        printf("\n_-_-_ MOCHILA DE LOOT_-_-_\n");
-         printf("Nome do item: ");
-         fgets(novoItem.nome, sizeof(novoItem.nome), stdin);
-            novoItem.nome[strcspn(novoItem.nome, "\n")] = '\0';
-    
-    printf("Tipo do item (arma, municao, cura, ferramenta...): ");
-    fgets(novoItem.tipo, sizeof(novoItem.tipo), stdin);
-    novoItem.tipo[strcspn(novoItem.tipo, "\n")] = '\0';
-
        printf("1 - Cadastrar item\n");
        printf("2 - Remover item\n");
        printf("3 - Listar itens\n");
        printf("4 - Buscar item\n");
        printf("0 - Sair\n");
        printf("Escolha uma opcao: "); 
+       printf("Nome do item: ");
 
        //Lê a opção escolhida. Scanf com %d lê apenas o número inteiro.
     scanf("%d", &opcao);
