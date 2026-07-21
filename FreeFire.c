@@ -1,5 +1,7 @@
 /*- - - - - - -  MOCHILA DE LOOT 2°PARTE - - - VETOR (LISTA SEQUENCIAL) - VS - LISTA ENCADEADA - - - - -
-° Objetivo: Cadastra, remover, listar e buscar itens usando STRUCT e um VETOR(lista sequencial). */
+° Objetivo: Cadastra, remover, listar e buscar itens usando STRUCT e um VETOR(lista sequencial). 
+1) VETOR (LISTA SEQUENCIAL) ->tamanho fixo(MAX_ITENS)
+2) LISTA ENCADEADA -> tamanho dinânimico (sem limites) */
 
 #include <stdio.h>
 #include <string.h>
@@ -22,6 +24,11 @@ typedef struct
     char tipo[20]; // categoria, ex: "arma", "munição", "cura"
     int quantidade; // quantos desse item o jogador tem.
 } Item;
+typedef struct No
+{
+    Item dados;
+    struct No *proximo; //Aponta para o próximo item da lista (ou NULL se for o último) 
+} No;
 
 /*
 _-_-_-_-_-_ VARIÁVEIS GLOBAIS DA MOCHILA _-_-_-_-_-_
@@ -63,11 +70,10 @@ int main() {
        printf("3 - Listar itens\n");
        printf("4 - Buscar item\n");
        printf("0 - Sair\n");
-       printf("Escolha uma opcao: "); 
-       printf("Nome do item: ");
+       printf("Escolha uma opcao: ");
 
        //Lê a opção escolhida. Scanf com %d lê apenas o número inteiro.
-    scanf("%d", &opcao);
+       scanf("%d", &opcao);
        limparBufferEntrada(); //essencial antes de usar o fgets() depois de scanf().
 
        //switch: direciona o fluxo para a função certa, conforme a escolha. 
@@ -86,7 +92,7 @@ int main() {
             break;
         case 4: {
             char nomeBuscando[30];
-            printf("Digite o nome do item a bsucar: ");
+            printf("Digite o nome do item a buscar: ");
             fgets(nomeBuscando, sizeof(nomeBuscando), stdin);
             nomeBuscando[strcspn(nomeBuscando, "\n")] = '\0'; // remove o '\n' que "fgets" deixa
             
@@ -94,7 +100,7 @@ int main() {
             if (pos != -1)
             {
                 printf("\nItem encontrado!\n");
-                printf("Nome: %s | Tipo; %s | Quantidade: %d\n", mochila[pos].nome, mochila[pos].tipo, mochila[pos].quantidade);
+                printf("Nome: %s | Tipo: %s | Quantidade: %d\n", mochila[pos].nome, mochila[pos].tipo, mochila[pos].quantidade);
 
             } else {
                 printf("\nItem \"%s\" nao encontrado na mochila.\n", nomeBuscando);
@@ -143,11 +149,11 @@ void limparBufferEntrada(void) {
     printf("\n _-_-Cadastro de novo item _-_-\n");
 
     printf("Nome do item: ");
-    fgets(novoItem.tipo, sizeof(novoItem.tipo), stdin);
-    novoItem.tipo[strcspn(novoItem.tipo, "\n")] = '\0'; // tira o "\n" final do fgets
+    fgets(novoItem.nome, sizeof(novoItem.nome), stdin);
+    novoItem.nome[strcspn(novoItem.nome, "\n")] = '\0'; // tira o "\n" final do fgets
 
     printf("Tipo do item (arma, municao, cura, ferramenta...): ");
-    fgets(novoItem.tipo,sizeof(novoItem.tipo), stdin);
+    fgets(novoItem.tipo, sizeof(novoItem.tipo), stdin);
     novoItem.tipo[strcspn(novoItem.tipo,"\n")] = '\0';
 
     printf("Quantidade: ");
@@ -187,12 +193,12 @@ void removerItem() {
     }
 //Desloca todo os itens depois da posição encontrada uma casa para trás.
 //Ex: removendo mochila[2], mochila[3] vira mochila[2], mochila[4] vira mochila[3]...
-    for ( int i = pos; i < totalItens; i++)
+    for (int i = pos; i < totalItens - 1; i++)
     {
         mochila[i] = mochila[i + 1];
     }
     totalItens--; // Aqui deixa um item a menos no vetor
-    printf("\n\"%s\"removido com sucesso!\n", nomeRemover);
+    printf("\n\"%s\" removido com sucesso!\n", nomeRemover);
 }
 /*
 _-_-_-_-_-_LISTAR ITENS_-_-_-_-_-_
