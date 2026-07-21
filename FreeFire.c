@@ -87,10 +87,8 @@ int main() {
     do
     { // menu orientativo: mensagens claras para o jogador saber o que fazer.
        printf("\n_-_-_ MOCHILA DE LOOT_-_-_\n");
-       printf("1 - Cadastrar item\n");
-       printf("2 - Remover item\n");
-       printf("3 - Listar itens\n");
-       printf("4 - Buscar item\n");
+       printf("1 - Usar mochila com VETOR\n");
+       printf("2 - Usar mochila com Lista Encadeada\n");
        printf("0 - Sair\n");
        printf("Escolha uma opcao: ");
 
@@ -102,44 +100,59 @@ int main() {
        switch (opcao)
        {
        case 1:
-            inserirItem();
-            listarItens(); // requisito: listar após cada operação.
-        break;
+            menuVetor(); // chama o menu do vetor (lista sequencial)
+            break;
        case 2:
-            removerItem();
+            menuLista(); // chama o menu da lista encadeada
+            break;
+       case 3:
             listarItens();
             break;
-        case 3:
-            listarItens();
+       case 0: 
+            printf("\nEncerrando o programa.\n");
             break;
-        case 4: {
-            char nomeBuscando[30];
-            printf("Digite o nome do item a buscar: ");
-            fgets(nomeBuscando, sizeof(nomeBuscando), stdin);
-            nomeBuscando[strcspn(nomeBuscando, "\n")] = '\0'; // remove o '\n' que "fgets" deixa
-            
-            int pos = buscarItem(nomeBuscando);
-            if (pos != -1)
-            {
-                printf("\nItem encontrado!\n");
-                printf("Nome: %s | Tipo: %s | Quantidade: %d\n", mochila[pos].nome, mochila[pos].tipo, mochila[pos].quantidade);
 
-            } else {
-                printf("\nItem \"%s\" nao encontrado na mochila.\n", nomeBuscando);
-            }
-            break;
+            default: 
+                printf("\nOpcao invalida!.\n");
+
        }
-        case 0: 
-            printf("Encerrando o sistema. Boa sorte na partida!\n");
-            break;
-        default:
-            printf("Opcao invalida! Tente novamente,\n");
-        }
-
-    } while (opcao != 0); // repete o menu até o jogador digitar "0"
-    
-    return 0;
+    } while (opcao != 0);
+    return 0;           
 }
+void menuVetor() {
+    int opcao;
+
+    do
+    {
+        printf("\n _-_-_- MOCHILA _-_-_-\n");
+        printf("Status: %d/%d itens | %s\n",
+                totalItens, MAX_ITENS,
+                vetorEstarOrdenado ? "ORDENADO" : "NAO ORDENADO");
+
+        printf("1 - Inserir item\n");
+        printf("2 - Remover item\n");
+        printf("3 - listar itens\n");
+        printf("4 - Buscar item (sequencial)\n");
+        printf("5 - Ordenar itens por nome\n");
+        printf("6 - Buscar item (binaria)\n");
+        print("0 - Voltar\n");
+        printf("Escolha: ");
+
+        scanf("%d", &opcao);
+        limparBufferEntrada();
+
+        switch (opcao)
+        {
+        case :
+            /* code */
+            break;
+        
+        default:
+            break;
+        }
+    } while (condition);
+    
+}        
 
 /*_-_-_-_-_-_ limparBufferEntrada_-_-_-_-_-_
      _-_-uma pequena explicação para que serve_-_- 
