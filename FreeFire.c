@@ -251,7 +251,46 @@ int buscaBinariaVetor(char nomeBuscando[]) {
     return - 1;
 }
 
+void ordenarVetorPorNome() {
+    for (int i = 0; i < totalItens - 1; i++)
+    {
+        for (int j = 0; j < totalItens - 1 - i; i++)
+        {
+            if (strcmp(mochila[j].nome, mochila[j + 1].nome) > 0)
+            {
+                Item temp = mochila[j];
+                mochila[j] = mochila[j + 1];
+                mochila[j + 1] = temp;
+            }
+            
+        }
+        
+    }
+    vetorEstarOrdenado = 1;
+    printf("Vetor ordenado por nome!\n");
+}
+int buscaBinariaVetor(char nomeBuscando[]) {
+    int inicio = 0;
+    int fim = totalItens - 1; 
 
+    while (inicio <= fim)
+    {
+        int meio = (inicio + fim) / 2;
+
+        int resultado = strcmp(mochila[meio].nome, nomeBuscando);
+
+        if (resultado == 0)
+        {
+            return meio;
+        } else if (resultado < 0) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
+        }
+        
+    }
+    return -1;
+}
 
 /*_-_-_-_-_-_ limparBufferEntrada_-_-_-_-_-_
      _-_-uma pequena explicação para que serve_-_- 
@@ -275,8 +314,68 @@ void limparBufferEntrada(void) {
         printf("\nMochila cheia! Nao e possivel cadastrar mais itens.\n");
         return; //sai da função imediatamente
     }
+    vetorEstarOrdenado = 0; // novo item pode quebrar ordenação
 // toalItens funciona como "próxima posição livre" no vetor.
 // Ex: se totalItens = 0
+
+// _-_-_-_-_-_-_- MENU DA LISTA ENCADEADA _-_-_-_-_-_-_-
+ void menuLista() {
+    int opcao;
+
+    do
+    {
+        printf("\n _-_-_ MOCHILA (LISTA ENCADEADA) _-_-_\n");
+        printf("1. - Inserir item\n");
+        printf("2. - Remover item\n");
+        printf("3. - Listar itens\n");
+        printf("4. - Buscar item\n");
+        printf("0. - Voltar\n");
+        printf("Escolha: ");
+
+        scanf("%d",&opcao);
+        limparBufferEntrada;
+
+        switch (opcao)
+        {
+        case 1:
+            inserirItemLista();
+            listarLista();
+            break;
+        
+        case 2: 
+            removerItemLista();
+            listarLista();
+            break;
+
+        case 3:
+            listarLista();
+            break;
+
+        case 4: {
+            char nome[30];
+            printf("Nome do item: ");
+            fgets(nome, sizeof(nome), stdin);
+            nome[strcmp(nome, "\n")] = '\0';
+
+            No *encontrado = buscarItemLista(nome);
+
+            if (encontrado != NULL)
+            {
+                printf("Encontrado: %s | %s | %d\n",
+                        encontrado->dados.nome,
+                        encontrado->dados.tipo,
+                        encontrado->dados.quantidade);
+            } else {
+                printf("Item nao encontrado.\n");
+            }
+            break;
+        }
+        
+      }
+
+    } while (opcao != 0);
+ }
+
 
     Item novoItem;
 
