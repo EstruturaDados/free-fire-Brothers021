@@ -65,6 +65,16 @@ void removerItem();
 void listarItens();
 int buscarItem(char nomeBuscando[]); //retorna a POSIÇÃO do item no vetor (ou -1 se não achar)
 
+// _-_-_-_-_-_- FUNÇÕES DO VETOR _-_-_-_-_-_-
+void inserirVetorPorNome();
+void removerItemLista();
+void listarLista();
+No *buscarItemLista(char nomeBuscando[]); //retorna o ENDEREÇO do item na lista (ou NULL se não achar)
+
+// _-_-_-_-_-_- MENUS _-_-_-_-_-_-
+void menuVetor();
+void menuLista(); 
+
 void limparBufferEntrada(void);
 
 /*_-_-_-_-_-_FUNÇÃO PRINCIPAL (main)_-_-_-_-_-_
