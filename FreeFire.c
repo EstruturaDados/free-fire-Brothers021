@@ -54,10 +54,18 @@ até o jogador escolher sair (opção 0)*/
 
 int main() {
     int opcao;
+    Item novoItem;
 
     do
     { // menu orientativo: mensagens claras para o jogador saber o que fazer.
        printf("\n_-_-_ MOCHILA DE LOOT_-_-_\n");
+         printf("Nome do item: ");
+         fgets(novoItem.nome, sizeof(novoItem.nome), stdin);
+            novoItem.nome[strcspn(novoItem.nome, "\n")] = '\0';
+    
+    printf("Tipo do item (arma, municao, cura, ferramenta...): ");
+    fgets(novoItem.tipo, sizeof(novoItem.tipo), stdin);
+    novoItem.tipo[strcspn(novoItem.tipo, "\n")] = '\0';
 
        printf("1 - Cadastrar item\n");
        printf("2 - Remover item\n");
