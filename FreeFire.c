@@ -143,16 +143,115 @@ void menuVetor() {
 
         switch (opcao)
         {
-        case :
-            /* code */
-            break;
+        case 1:
+            inserirItem();
+            listarItens();
+        break;
         
-        default:
+        case 2:
+           removerItem();
+           listarItens();
+        break;
+
+        case 3:
+           listarItens();
+        break;
+
+        case 4:
+            char nome[30];
+            printf("Nome do item: ");
+            fgets(nome, sizeof(nome), stdin);
+            nome[strcspn(nome,"\n")] = '\0';
+
+            int pos = buscarItem(nome);
+
+                if (pos != -1)
+                {
+                    printf("Econtrado: %s | %s | %d\n",
+                        mochila[pos].nome,
+                        mochila[pos].tipo,
+                        mochila[pos].quantidade);
+                } else {
+                    printf("Item nao encontrado.\n");
+                }
+                 break;
+        case 5:
+            ordenarVetorPorNome();
+            listarItens();
+        break;
+
+        case 6: {
+            if (!vetorEstarOrdenado) 
+            {
+                printf("Ordene o vetor antes!\n");
+                break;
+            }
+        char nome[30];
+            printf("Nome do item: ");
+            fgets(nome, sizeof(nome), stdin);
+            nome[strcspn(nome, "\n")] = '\0';
+
+            int pos = buscaBinariaVetor(nome);
+
+            if(pos != -1) {
+                printf("Encontrado: %s | %s | %d\n",
+                        mochila[pos].nome,
+                        mochila[pos].tipo,
+                        mochila[pos].quantidade);
+            }else {
+                printf("Item nao encontrado.\n");
+            }
             break;
         }
-    } while (condition);
+     }
+   } while (opcao != 0);
     
 }        
+
+void ordenarVetorPorNome() {
+    for (int i = 0; i < totalItens - 1; i++)
+    {
+        for (int j = 0; j < totalItens - 1 - i ; i++)
+        {
+            if (strcmp(mochila[j].nome, mochila[j + 1].nome) > 0)
+            {
+                Item temp = mochila[j];
+                mochila[j] = mochila[j + 1];
+                mochila[j + 1] = temp;
+            }
+            
+        }
+        
+    }
+    vetorEstarOrdenado = 1;
+    printf("Vetor ordenado por nome!\n");
+}
+
+int buscaBinariaVetor(char nomeBuscando[]) {
+    int inicio = 0;
+    int fim = totalItens - 1;
+    
+    while (inicio <= fim)
+    {
+        int meio = (inicio + fim) / 2;
+
+        int resultado = strcmp(mochila[meio].nome, nomeBuscando);
+
+        if (resultado == 0)
+        {
+            return meio;
+        } else if (resultado < 0)
+        {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
+        }
+          
+    }
+    return - 1;
+}
+
+
 
 /*_-_-_-_-_-_ limparBufferEntrada_-_-_-_-_-_
      _-_-uma pequena explicação para que serve_-_- 
